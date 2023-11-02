@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B00DB081-F44E-4902-8B71-02272E89459F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{7CA547C4-8802-4420-9CE8-92EBA7F80DCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{ADC31A98-71F9-4EDD-8806-7595EA5FFAF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{02589C8C-32F3-4AB9-90DA-BE5FED6AF4EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{509E792A-8BD2-43F7-89F4-D63732A8D84F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inveon.Services.ProductAPI", "Inveon.Services.ProductAPI\Inveon.Services.ProductAPI.csproj", "{0EFBDA6A-8E68-4424-A1AD-2133E30EC2C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inveon.Web", "Inveon.Web\Inveon.Web.csproj", "{83CBC741-CC68-415B-8AE5-39FEF59373C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inveon.GatewaySolution", "Inveon.GatewaySolution\Inveon.GatewaySolution.csproj", "{0148233B-0164-4A30-B172-A20314A1E707}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inveon.Services.Identity", "Inveon.Services.Identity\Inveon.Services.Identity.csproj", "{DD0581CA-8800-4888-8165-F506C1D11B33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EFBDA6A-8E68-4424-A1AD-2133E30EC2C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EFBDA6A-8E68-4424-A1AD-2133E30EC2C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EFBDA6A-8E68-4424-A1AD-2133E30EC2C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EFBDA6A-8E68-4424-A1AD-2133E30EC2C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CBC741-CC68-415B-8AE5-39FEF59373C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CBC741-CC68-415B-8AE5-39FEF59373C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CBC741-CC68-415B-8AE5-39FEF59373C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CBC741-CC68-415B-8AE5-39FEF59373C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0148233B-0164-4A30-B172-A20314A1E707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0148233B-0164-4A30-B172-A20314A1E707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0148233B-0164-4A30-B172-A20314A1E707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0148233B-0164-4A30-B172-A20314A1E707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD0581CA-8800-4888-8165-F506C1D11B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD0581CA-8800-4888-8165-F506C1D11B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD0581CA-8800-4888-8165-F506C1D11B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD0581CA-8800-4888-8165-F506C1D11B33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0EFBDA6A-8E68-4424-A1AD-2133E30EC2C8} = {509E792A-8BD2-43F7-89F4-D63732A8D84F}
+		{83CBC741-CC68-415B-8AE5-39FEF59373C5} = {B00DB081-F44E-4902-8B71-02272E89459F}
+		{0148233B-0164-4A30-B172-A20314A1E707} = {7CA547C4-8802-4420-9CE8-92EBA7F80DCB}
+		{DD0581CA-8800-4888-8165-F506C1D11B33} = {509E792A-8BD2-43F7-89F4-D63732A8D84F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBC25B79-EAE4-4856-917B-746A878318A0}
+	EndGlobalSection
+EndGlobal
