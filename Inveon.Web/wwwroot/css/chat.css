@@ -1,6 +1,6 @@
 ﻿.chat-button {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     right: 20px;
 }
 
@@ -38,7 +38,7 @@
 
     .message > div {
         flex-grow: 1;
-        max-width: 88%;
+        max-width:88%;
         overflow-wrap: break-word;
     }
 
