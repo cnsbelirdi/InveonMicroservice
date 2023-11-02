@@ -12,4 +12,4 @@ Developing during the bootcamp.
 ## Homework
 Simple chat functionality using SignalR.
 
-![Chat]([http://url/to/img.png](https://i.hizliresim.com/asbyw6u.png)https://i.hizliresim.com/asbyw6u.png)
+![Chat](https://i.hizliresim.com/asbyw6u.png)
