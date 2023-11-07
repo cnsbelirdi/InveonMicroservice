@@ -11,9 +11,10 @@ SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
 SD.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
 SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
 
-builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSignalR();
@@ -62,7 +63,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<ChatHub>("/chatHub");
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}"); 
+        pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 });
 
 app.Run();

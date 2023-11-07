@@ -9,6 +9,7 @@ namespace Inveon.Web.Areas.Customer.Controllers
     [Area("Customer")]
     public class CartController : Controller
     {
+
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
         private readonly ICouponService _couponService;
@@ -18,12 +19,86 @@ namespace Inveon.Web.Areas.Customer.Controllers
             _couponService = couponService;
             _cartService = cartService;
         }
-
         public async Task<IActionResult> Index()
         {
             return View(await LoadCartDtoBasedOnLoggedInUser());
         }
 
+        [HttpPost]
+        [ActionName("ApplyCoupon")]
+        public async Task<IActionResult> ApplyCoupon(CartDto cartDto)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.ApplyCoupon<ResponseDto>(cartDto, accessToken);
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("RemoveCoupon")]
+        public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.RemoveCoupon<ResponseDto>(cartDto.CartHeader.UserId, accessToken);
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.RemoveFromCartAsync<ResponseDto>(cartDetailsId, accessToken);
+
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+
+        public async Task<IActionResult> Checkout()
+        {
+            return View(await LoadCartDtoBasedOnLoggedInUser());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CartDto cartDto)
+        {
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _cartService.Checkout<ResponseDto>(cartDto.CartHeader, accessToken);
+                // var response = await _cartService.Checkout2<ResponseDto>(cartDto, accessToken);
+                if (!response.IsSuccess)
+                {
+                    TempData["Error"] = response.DisplayMessage;
+                    return RedirectToAction(nameof(Checkout));
+                }
+                return RedirectToAction(nameof(Confirmation));
+            }
+            catch (Exception e)
+            {
+                return View(cartDto);
+            }
+        }
+
+        public async Task<IActionResult> Confirmation()
+        {
+            return View();
+        }
         private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
         {
             var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
