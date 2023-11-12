@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Inveon.Services.CouponAPI.Contexts;
+using Inveon.Services.CouponAPI.DbContexts;
 using Inveon.Services.CouponAPI.Models.Dto;
 using Microsoft.EntityFrameworkCore;
 

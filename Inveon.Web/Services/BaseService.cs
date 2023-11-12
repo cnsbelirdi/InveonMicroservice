@@ -55,9 +55,6 @@ namespace Inveon.Web.Services
                 }
                 apiResponse = await client.SendAsync(message);
 
-                var statusCode = apiResponse.StatusCode;
-                var responseContent = await apiResponse.Content.ReadAsStringAsync();
-
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
                 var apiResponseDto = JsonConvert.DeserializeObject<T>(apiContent);
                 return apiResponseDto;

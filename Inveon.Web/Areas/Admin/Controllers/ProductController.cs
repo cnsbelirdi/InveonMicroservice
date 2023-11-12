@@ -21,7 +21,7 @@ namespace Inveon.Web.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ProductIndex()
         {
             List<ProductDto> list = new();
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -33,14 +33,14 @@ namespace Inveon.Web.Areas.Admin.Controllers
             return View(list);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductViewModel model)
+        public async Task<IActionResult> ProductCreate(ProductViewModel model)
         {
             //if (ModelState.IsValid)
             //  {
@@ -61,13 +61,13 @@ namespace Inveon.Web.Areas.Admin.Controllers
             var response = await _productService.CreateProductAsync<ResponseDto>(productDto, accessToken);
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ProductIndex));
             }
             //}
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(int productId)
+        public async Task<IActionResult> ProductEdit(int productId)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var response = await _productService.GetProductByIdAsync<ResponseDto>(productId, accessToken);
@@ -93,7 +93,7 @@ namespace Inveon.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductViewModel model)
+        public async Task<IActionResult> ProductEdit(ProductViewModel model)
         {
 
 
@@ -120,7 +120,7 @@ namespace Inveon.Web.Areas.Admin.Controllers
                     var response = await _productService.UpdateProductAsync<ResponseDto>(model2, accessToken);
                     if (response != null && response.IsSuccess)
                     {
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(ProductIndex));
                     }
 
                 }
@@ -133,7 +133,7 @@ namespace Inveon.Web.Areas.Admin.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int productId)
+        public async Task<IActionResult> ProductDelete(int productId)
         {
             if (productId == null)
             {
@@ -153,9 +153,9 @@ namespace Inveon.Web.Areas.Admin.Controllers
             var response = await _productService.DeleteProductAsync<ResponseDto>(productId, accessToken);
             if (response.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ProductIndex));
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ProductIndex));
         }
 
         private string ResimYukle(ProductViewModel model)

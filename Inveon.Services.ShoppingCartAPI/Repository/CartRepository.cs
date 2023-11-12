@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Inveon.Services.ShoppingCartAPI.DbContexts;
-using Inveon.Services.ShoppingCartAPI.Models;
 using Inveon.Services.ShoppingCartAPI.Models.Dto;
+using Inveon.Services.ShoppingCartAPI.Models;
+using Inveon.Services.ShoppingCartAPI.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inveon.Services.ShoppingCartAPI.Repository

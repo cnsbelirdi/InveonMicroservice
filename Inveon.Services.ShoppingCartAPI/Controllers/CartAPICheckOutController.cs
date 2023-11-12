@@ -1,17 +1,16 @@
-﻿using Inveon.Services.ShoppingCartAPI.Messages;
-using Inveon.Services.ShoppingCartAPI.Models.Dto;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Iyzipay.Request;
+using Iyzipay.Model;
+using Iyzipay;
+using Inveon.Services.ShoppingCartAPI.Messages;
 using Inveon.Services.ShoppingCartAPI.RabbitMQSender;
 using Inveon.Services.ShoppingCartAPI.Repository;
-using Iyzipay;
-using Iyzipay.Model;
-using Iyzipay.Request;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
+using Inveon.Services.ShoppingCartAPI.Models.Dto;
 
-namespace Inveon.Services.ShoppingCartAPI.Controllers
+namespace Inveon.Service.ShoppingCartAPI.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/cartc")]
     public class CartAPICheckOutController : ControllerBase
     {
@@ -62,8 +61,8 @@ namespace Inveon.Services.ShoppingCartAPI.Controllers
 
                 ////rabbitMQ
 
-                Payment payment = OdemeIslemi(checkoutHeader);
                 _rabbitMQCartMessageSender.SendMessage(checkoutHeader, "checkoutqueue");
+                Payment payment = OdemeIslemi(checkoutHeader);
                 await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
             catch (Exception ex)
@@ -74,9 +73,9 @@ namespace Inveon.Services.ShoppingCartAPI.Controllers
             return _response;
         }
 
-        [NonAction]
         public Payment OdemeIslemi(CheckoutHeaderDto checkoutHeaderDto)
         {
+
             CartDto cartDto = _cartRepository.GetCartByUserIdNonAsync(checkoutHeaderDto.UserId);
 
             Options options = new Options();
@@ -106,7 +105,7 @@ namespace Inveon.Services.ShoppingCartAPI.Controllers
             paymentCard.ExpireYear = checkoutHeaderDto.ExpiryYear;
             paymentCard.Cvc = checkoutHeaderDto.CVV;
             paymentCard.RegisterCard = 0;
-            paymentCard.CardAlias = "Infotech";
+            paymentCard.CardAlias = "Inveon";
             request.PaymentCard = paymentCard;
 
             Buyer buyer = new Buyer();

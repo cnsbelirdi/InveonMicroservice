@@ -19,7 +19,7 @@ namespace Inveon.Web.Areas.Customer.Controllers
             _couponService = couponService;
             _cartService = cartService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> CartIndex()
         {
             return View(await LoadCartDtoBasedOnLoggedInUser());
         }
@@ -34,7 +34,7 @@ namespace Inveon.Web.Areas.Customer.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(CartIndex));
             }
             return View();
         }
@@ -49,7 +49,7 @@ namespace Inveon.Web.Areas.Customer.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(CartIndex));
             }
             return View();
         }
@@ -63,7 +63,7 @@ namespace Inveon.Web.Areas.Customer.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(CartIndex));
             }
             return View();
         }
@@ -110,10 +110,8 @@ namespace Inveon.Web.Areas.Customer.Controllers
             {
                 cartDto = JsonConvert.DeserializeObject<CartDto>(Convert.ToString(response.Result));
             }
-
             if (cartDto.CartHeader != null)
             {
-
                 if (!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
                 {
                     var coupon = await _couponService.GetCoupon<ResponseDto>(cartDto.CartHeader.CouponCode, accessToken);
@@ -123,12 +121,10 @@ namespace Inveon.Web.Areas.Customer.Controllers
                         cartDto.CartHeader.DiscountTotal = couponObj.DiscountAmount;
                     }
                 }
-
                 foreach (var detail in cartDto.CartDetails)
                 {
-                    cartDto.CartHeader.OrderTotal += detail.Product.Price * detail.Count;
+                    cartDto.CartHeader.OrderTotal += (detail.Product.Price * detail.Count);
                 }
-
                 cartDto.CartHeader.OrderTotal -= cartDto.CartHeader.DiscountTotal;
             }
             return cartDto;

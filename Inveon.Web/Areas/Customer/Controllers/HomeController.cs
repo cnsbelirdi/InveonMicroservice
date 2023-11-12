@@ -1,11 +1,8 @@
-﻿using Inveon.Web.Hubs;
-using Inveon.Web.Models;
-using Inveon.Web.Services;
+﻿using Inveon.Web.Models;
 using Inveon.Web.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using System.Diagnostics;
 
@@ -17,25 +14,25 @@ namespace Inveon.Web.Areas.Customer.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
-        private readonly IHubContext<ChatHub> _chatHub;
-
-        public HomeController(ILogger<HomeController> logger, IProductService productService,  IHubContext<ChatHub> chatHub, ICartService cartService)
+        public HomeController(ILogger<HomeController> logger, 
+            IProductService productService,
+            ICartService cartService)
         {
             _logger = logger;
             _productService = productService;
-            _chatHub = chatHub;
-            _cartService = cartService;
+            _cartService = cartService; 
         }
 
         public async Task<IActionResult> Index()
         {
-            List<ProductDto> products = new();
+            List<ProductDto> list = new();
             var response = await _productService.GetAllProductsAsync<ResponseDto>("");
             if (response != null && response.IsSuccess)
             {
-                products = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
+                list = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
             }
-            return View(products);
+            return View(list);
+
         }
 
         [Authorize]
@@ -117,13 +114,5 @@ namespace Inveon.Web.Areas.Customer.Controllers
 		{
 			return SignOut("Cookies", "oidc");
 		}
-
-        [Route("Message")]
-        [HttpPost]
-        public IActionResult Message([FromBody] Message message)
-        {
-            _chatHub.Clients.All.SendAsync("lastMessage", message);
-            return Accepted();
-        }
-    }
+	}
 }

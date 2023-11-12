@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inveon.Services.ShoppingCartAPI.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/cart")]
     public class CartAPIController : ControllerBase
     {

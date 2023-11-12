@@ -1,6 +1,7 @@
 using AutoMapper;
 using Inveon.Services.CouponAPI;
-using Inveon.Services.CouponAPI.Contexts;
+using Inveon.Services.CouponAPI.DbContexts;
+using Inveon.Services.CouponAPI.DbContexts;
 using Inveon.Services.CouponAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
